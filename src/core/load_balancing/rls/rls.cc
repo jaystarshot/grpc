@@ -2130,21 +2130,21 @@ void RlsLb::UpdatePickerLocked() {
 template <typename HandleType>
 void RlsLb::MaybeExportPickCount(HandleType handle, absl::string_view target,
                                  const PickResult& pick_result) {
-  absl::string_view pick_result_string = Match(
-      pick_result.result,
-      [](const LoadBalancingPolicy::PickResult::Complete&) {
-        return "complete";
-      },
-      [](const LoadBalancingPolicy::PickResult::Queue&) { return ""; },
-      [](const LoadBalancingPolicy::PickResult::Fail&) { return "fail"; },
-      [](const LoadBalancingPolicy::PickResult::Drop&) { return "drop"; });
-  if (pick_result_string.empty()) return;  // Don't report queued picks.
-  auto& stats_plugins = channel_control_helper()->GetStatsPluginGroup();
-  stats_plugins.AddCounter(
-      handle, 1,
-      {channel_control_helper()->GetTarget(), config_->lookup_service(), target,
-       pick_result_string},
-      {});
+  // absl::string_view pick_result_string = Match(
+  //     pick_result.result,
+  //     [](const LoadBalancingPolicy::PickResult::Complete&) {
+  //       return "complete";
+  //     },
+  //     [](const LoadBalancingPolicy::PickResult::Queue&) { return ""; },
+  //     [](const LoadBalancingPolicy::PickResult::Fail&) { return "fail"; },
+  //     [](const LoadBalancingPolicy::PickResult::Drop&) { return "drop"; });
+  // if (pick_result_string.empty()) return;  // Don't report queued picks.
+  // auto& stats_plugins = channel_control_helper()->GetStatsPluginGroup();
+  // stats_plugins.AddCounter(
+  //     handle, 1,
+  //     {channel_control_helper()->GetTarget(), config_->lookup_service(), target,
+  //      pick_result_string},
+  //     {});
 }
 
 //
